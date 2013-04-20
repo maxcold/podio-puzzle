@@ -1,0 +1,9 @@
+.space-switcher-filter__input  {
+    width: 275px;
+
+    margin: 10px 0 10px 10px;
+}
+
+.space-switcher-filter__spaces {
+    overflow-y: auto;
+}

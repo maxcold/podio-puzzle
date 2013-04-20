@@ -4,7 +4,6 @@ BEM.DOM.decl('space-switcher', {
             var self = this;
 
             self._popup = self.findElem('popup');
-            self._popupInner = self.findElem('popup-inner');
 
             self._popupHeightHandler();
 
@@ -14,16 +13,47 @@ BEM.DOM.decl('space-switcher', {
             var self = this;
             var popup = self._getPopup();
 
-            $.when(self._getData()).then(function() {
-                console.log(self._data);
+            $.when(self._loadData()).then(function() {
+                var organizations = self._getData();
+                var bemjson = [];
+
+                console.log(organizations)
+
+                bemjson = organizations.map(function(org) {
+                   return {
+                       block: 'organization',
+                       content: [
+                           {
+                               elem: 'icon',
+                               src: (org.image && org.image.thumbnail_link) || ''
+                           },
+                           {
+                               block: 'list',
+                               content: [
+                                   {
+                                       elem: 'item',
+                                       mix: [
+                                           {
+                                               block: 'organization',
+                                               elem: 'name'
+                                           }
+                                       ],
+                                       url: org.url,
+                                       content: org.name
+                                   }
+                               ]
+                           }
+                       ]
+                   };
+                });
+
+                console.log(BEMHTML.apply(bemjson))
                 self.toggleMod(popup, 'visible', 'yes');
             })
         }
     },
 
     _popup: null,
-
-    _popupInner: null,
 
     _data: null,
 
@@ -38,26 +68,25 @@ BEM.DOM.decl('space-switcher', {
     _popupHeightHandler: function() {
         this._setPopupHeight();
 
-        this.bindToWin('resize', this._setPopupHeight);
+        this.bindToWin('resize', $.throttle(100, this._setPopupHeight));
     },
 
     _setPopupHeight: function() {
         var popup = this._getPopup();
         var popupHeight = popup.height();
-        var popupInner = this._getPopupInner();
-        var popupInnerHeight = popupInner.height();
+        var filter = this.findBlockInside('space-switcher-filter');
+        var spaces = filter.findElem('spaces');
+        var spacesInner = filter.findElem('spaces-inner');
+        var input = filter.findElem('input');
+        var inputHeight = input.outerHeight(true);
+        var spacesHeight = spacesInner.outerHeight(true);
+        var spacesInnerHeight = spacesHeight + inputHeight;
         var viewportHeight = $(window).height();
         var minPopupHeight = viewportHeight*0.8 - 40;
 
-        console.log()
-
-        if (popupHeight > minPopupHeight || popupInnerHeight > minPopupHeight) {
-            popup.css({height: minPopupHeight});
+        if (popupHeight > minPopupHeight || spacesInnerHeight > popupHeight) {
+            spaces.css({height: (minPopupHeight - inputHeight < spacesInnerHeight) ? minPopupHeight - inputHeight : spacesHeight});
         }
-    },
-
-    _getPopupInner: function() {
-        return this._popupInner;
     },
 
     _getPopup: function() {
@@ -65,6 +94,10 @@ BEM.DOM.decl('space-switcher', {
     },
 
     _getData: function() {
+        return this._data;
+    },
+
+    _loadData: function() {
         var self = this;
         var dfd = $.Deferred();
 

@@ -1,0 +1,5 @@
+block organization, elem icon {
+    attrs: {
+        style: 'background-image: url(' + this.ctx.src + ');'
+    }
+}

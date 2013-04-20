@@ -9,6 +9,10 @@
         {
             block: 'i-utils',
             elem: 'normalize-css'
+        },
+        {
+            block: 'i-utils',
+            elem: 'throttle'
         }
     ],
     shouldDeps: [

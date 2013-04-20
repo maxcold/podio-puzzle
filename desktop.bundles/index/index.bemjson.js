@@ -6,6 +6,7 @@
         { elem: 'css', url: '_index.css', ie: false },
         { block: 'i-jquery', elem: 'core' },
         { elem: 'js', url: '_index.js' },
+        { elem: 'js', url: '../client/_client.bemhtml.js' },
         { elem: 'meta', attrs: { name: 'description', content: 'Podio front-end developer test' }}
     ],
     content:[
@@ -69,9 +70,124 @@
                                                 {
                                                     block: 'space-switcher',
                                                     elem: 'popup',
-                                                    content: [
-                                                        'test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>'
-                                                    ]
+                                                    content: {
+                                                        block: 'space-switcher-filter',
+                                                        content: [
+                                                            {
+                                                                elem: 'input'
+                                                            },
+                                                            {
+                                                                elem: 'spaces',
+                                                                content: [
+                                                                    {
+                                                                        block: 'organization',
+                                                                        content: [
+                                                                            {
+                                                                                elem: 'icon',
+                                                                                src: ''
+                                                                            },
+                                                                            {
+                                                                                block: 'list',
+                                                                                content: [
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        elemMods: {
+                                                                                            state: 'selected'
+                                                                                        },
+                                                                                        mix: [
+                                                                                            {
+                                                                                                block: 'organization',
+                                                                                                elem: 'name'
+                                                                                            }
+                                                                                        ],
+                                                                                        url: '/',
+                                                                                        content: 'auchenberg'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'auchenberg'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'scrum'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'visiolink'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        mix: [
+                                                                                            {
+                                                                                                block: 'organization',
+                                                                                                elem: 'create-space'
+                                                                                            }
+                                                                                        ],
+                                                                                        url: '#create',
+                                                                                        content: '+ New space'
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        block: 'organization',
+                                                                        content: [
+                                                                            {
+                                                                                elem: 'icon',
+                                                                                src: ''
+                                                                            },
+                                                                            {
+                                                                                block: 'list',
+                                                                                content: [
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        mix: [
+                                                                                            {
+                                                                                                block: 'organization',
+                                                                                                elem: 'name'
+                                                                                            }
+                                                                                        ],
+                                                                                        url: '/',
+                                                                                        content: 'Podio'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'Аuchenberg'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'Launch'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        url: '/',
+                                                                                        content: 'visiolink'
+                                                                                    },
+                                                                                    {
+                                                                                        elem: 'item',
+                                                                                        mix: [
+                                                                                            {
+                                                                                                block: 'organization',
+                                                                                                elem: 'create-space'
+                                                                                            }
+                                                                                        ],
+                                                                                        url: '#create',
+                                                                                        content: '+ New space'
+                                                                                    }
+                                                                                ]
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
                                                 }
                                             ]
                                         },

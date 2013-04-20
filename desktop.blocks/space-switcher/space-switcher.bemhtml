@@ -1,6 +1,0 @@
-block space-switcher, elem popup {
-    content: {
-        elem: 'popup-inner',
-        content: this.ctx.content
-    }
-}

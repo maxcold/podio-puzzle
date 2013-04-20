@@ -1,0 +1,13 @@
+.list__item {
+    display: block;
+
+    color: #999;
+
+    padding: 2px 0 2px 20px;
+
+    text-decoration: none;
+}
+
+.list__item_state_selected {
+    background-color: #e9f0f7;
+}

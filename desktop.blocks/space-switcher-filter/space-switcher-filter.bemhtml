@@ -1,0 +1,16 @@
+block space-switcher-filter, elem input {
+    tag: 'input'
+
+    attrs: {
+        type: 'text',
+        value: '',
+        placeholder: 'Search for spaces'
+    }
+}
+
+block space-switcher-filter, elem spaces {
+    content: {
+        elem: 'spaces-inner',
+        content: this.ctx.content
+    }
+}
