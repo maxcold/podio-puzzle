@@ -69,7 +69,9 @@
                                                 {
                                                     block: 'space-switcher',
                                                     elem: 'popup',
-                                                    content: 'test'
+                                                    content: [
+                                                        'test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>','test<br/>'
+                                                    ]
                                                 }
                                             ]
                                         },
