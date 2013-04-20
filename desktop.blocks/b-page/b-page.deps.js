@@ -5,7 +5,11 @@
             elem: 'dom',
             mods: { init: 'auto' }
         },
-        { block: 'bemhtml' }
+        { block: 'bemhtml' },
+        {
+            block: 'i-utils',
+            elem: 'normalize-css'
+        }
     ],
     noDeps: [
         {
