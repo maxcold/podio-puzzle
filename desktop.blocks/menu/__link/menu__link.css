@@ -1,0 +1,9 @@
+.menu__link {
+    display: block;
+    
+    font-size: 0.8em;
+
+    color: #fff;
+
+    text-decoration: none;
+}

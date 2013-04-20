@@ -33,7 +33,29 @@
                             elem: 'col',
                             mods: {
                                 type: 'right'
-                            }
+                            },
+                            content: [
+                                {
+                                    block: 'menu',
+                                    content: [
+                                        {
+                                            elem: 'item',
+                                            url: '/',
+                                            content: 'Home'
+                                        },
+                                        {
+                                            elem: 'item',
+                                            url: '#',
+                                            content: 'Go to space'
+                                        },
+                                        {
+                                            elem: 'item',
+                                            url: '#',
+                                            content: 'App store'
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
