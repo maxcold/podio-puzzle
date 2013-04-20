@@ -1,18 +1,27 @@
 BEM.DOM.decl('space-switcher', {
     onSetMod: {
         js: function() {
-            this._popup = this.findElem('popup');
+            var self = this;
 
-            this._setPopupHeight();
+            self._popup = self.findElem('popup');
 
-            this.bindToWin('resize', this._setPopupHeight);
+            self._setPopupHeight();
+
+            self.bindToWin('resize', self._setPopupHeight);
         },
         active: function() {
-            this.toggleMod(this._popup, 'visible', 'yes');
+            var self = this
+
+            $.when(self._getData()).then(function() {
+                console.log(self._data);
+                self.toggleMod(self._popup, 'visible', 'yes');
+            })
         }
     },
 
     _popup: null,
+
+    _data: null,
 
     _toggleActivity: function() {
         this.toggleMod('active', 'yes');
@@ -27,6 +36,29 @@ BEM.DOM.decl('space-switcher', {
 
     _getPopup: function() {
         return this._popup;
+    },
+
+    _getData: function() {
+        var self = this;
+        var dfd = $.Deferred();
+
+        if (!self._data) {
+            $.ajax({
+                url: '/data.json',
+                dataType: 'json',
+                success: function(data) {
+                    self._data = data;
+                    dfd.resolve();
+                },
+                error: function() {
+                    dfd.reject();
+                }
+            })
+        } else {
+            dfd.resolve();
+        }
+
+        return dfd.promise();
     }
 },
 {
