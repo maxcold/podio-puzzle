@@ -11,6 +11,11 @@
             elem: 'normalize-css'
         }
     ],
+    shouldDeps: [
+        {
+            block: 'space-switcher'
+        }
+    ],
     noDeps: [
         {
             block: 'i-bem',

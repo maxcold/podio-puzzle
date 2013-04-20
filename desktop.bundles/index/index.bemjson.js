@@ -40,18 +40,46 @@
                                     content: [
                                         {
                                             elem: 'item',
-                                            url: '/',
-                                            content: 'Home'
+                                            content: {
+                                                elem: 'link',
+                                                url: '/',
+                                                content: 'Home'
+                                            }
                                         },
                                         {
                                             elem: 'item',
-                                            url: '#',
-                                            content: 'Go to space'
+                                            mix: [
+                                                {
+                                                    block: 'space-switcher',
+                                                    js: true
+                                                }
+                                            ],
+                                            content: [
+                                                {
+                                                    elem: 'link',
+                                                    mix: [
+                                                        {
+                                                            block: 'space-switcher',
+                                                            elem: 'control'
+                                                        }
+                                                    ],
+                                                    url: '#',
+                                                    content: 'Go to space'
+                                                },
+                                                {
+                                                    block: 'space-switcher',
+                                                    elem: 'popup',
+                                                    content: 'test'
+                                                }
+                                            ]
                                         },
                                         {
                                             elem: 'item',
-                                            url: '#',
-                                            content: 'App store'
+                                            content: {
+                                                elem: 'link',
+                                                url: '#',
+                                                content: 'App store'
+                                            }
                                         }
                                     ]
                                 }
@@ -64,7 +92,13 @@
         {
             block: 'content',
             content: [
-                'main content'
+                {
+                    tag: 'img',
+                    attrs: {
+                        width: 1000,
+                        src: '../../i/puzzle.jpg'
+                    }
+                }
             ]
         }
     ]

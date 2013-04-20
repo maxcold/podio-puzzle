@@ -1,0 +1,24 @@
+.space-switcher__popup {
+    position: absolute;
+
+    display: none;
+
+    width: 300px;
+
+    border: 1px solid #bebfc1;
+    border-top: none;
+
+    background-color: #fff;
+
+    -webkit-box-shadow: 0px 2px 4px 0px #ccc; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
+    box-shadow: 0px 2px 4px 0px #ccc; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera 10.50+ */
+
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+    .space-switcher__popup_visible_yes {
+        display: block;
+    }

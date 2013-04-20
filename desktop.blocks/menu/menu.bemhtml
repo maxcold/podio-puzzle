@@ -4,12 +4,6 @@ block menu {
 
 block menu, elem item {
     tag: 'li'
-
-    content: {
-        elem: 'link',
-        url: this.ctx.url,
-        content: this.ctx.content
-    }
 }
 
 block menu, elem link {
