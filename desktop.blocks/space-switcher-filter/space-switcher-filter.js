@@ -14,6 +14,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
                 self._items = self.findElem('item');
                 self._input = self.findElem('input');
+                self._rowHeight = self._getRowHeight();
 
                 self._redrawList()
             });
@@ -47,6 +48,8 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _curItemIndex: -1,
 
+    _rowHeight: 23,
+
     _redrawList: function() {
         var self = this;
         var items = self._getItems();
@@ -72,13 +75,17 @@ BEM.DOM.decl('space-switcher-filter', {
         return this.delMod('focused');
     },
 
-    _onEnterItem: function(item) {
+    _onEnterItem: function(item, byKeyboard) {
         var idx = this._curItemIndex;
         var items = this._getItems();
 
         idx > -1 && this.delMod(items.eq(idx), 'state');
         idx = this._getItemIndex(item);
-        idx > -1 && this.setMod(items.eq(this._curItemIndex = idx), 'state', 'selected')
+        idx > -1 && this.setMod(items.eq(this._curItemIndex = idx), 'state', 'selected');
+
+        if (byKeyboard) {
+            this._scrollToCurrent();
+        }
     },
 
     _onLeaveItem: function(item) {
@@ -97,6 +104,12 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _getInput: function() {
         return this._input;
+    },
+
+    _getRowHeight: function() {
+        var items = this._getItems();
+
+        return items.outerHeight();
     },
 
     _getItemIndex: function(item) {
@@ -143,6 +156,25 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _onSelectItem: function(item) {
         window.location.href = item.attr('href');
+    },
+
+    _scrollToCurrent: function() {
+        if (this._curItemIndex < 0) return;
+
+        var curOffsetTop = this.findElem('item', 'state', 'selected').get(0).offsetTop;
+        var spaces = this.findElem('spaces');
+        var scrollTop = spaces.scrollTop();
+        var disp = curOffsetTop - scrollTop;
+        var fact = this._rowHeight * 2;
+        var newScrollTop;
+
+        if (disp > spaces.height() - fact) {
+            newScrollTop = curOffsetTop - fact;
+        } else if (scrollTop && disp < fact) {
+            newScrollTop = curOffsetTop - spaces.height() + fact;
+        }
+
+        newScrollTop && spaces.scrollTop(newScrollTop);
     },
 
     _getData: function() {
