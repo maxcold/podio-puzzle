@@ -4,20 +4,37 @@ BEM.DOM.decl('space-switcher', {
             var self = this;
 
             self._popup = self.findElem('popup');
+            self._filter = self.findBlockInside('space-switcher-filter');
 
             self._popupHeightHandler();
 
             self.bindToWin('click', self._onOutsideClick);
         },
-        active: function() {
-            var self = this;
-            var popup = self._getPopup();
+        active: {
+            'yes': function() {
+                var self = this;
+                var popup = self._getPopup();
+                var filter = self._getFilter();
 
-            self.toggleMod(popup, 'visible', 'yes');
+                $.when(filter._loadData()).then(function(){
+                    self.toggleMod(popup, 'visible', 'yes');
+                    filter._focus();
+                });
+            },
+            '': function() {
+                var self = this;
+                var popup = self._getPopup();
+                var filter = self._getFilter();
+
+                self.toggleMod(popup, 'visible', 'yes');
+                filter._blur();
+            }
         }
     },
 
     _popup: null,
+
+    _filter: null,
 
     _isActive: function() {
         return this.hasMod('active');
@@ -47,12 +64,22 @@ BEM.DOM.decl('space-switcher', {
         var minPopupHeight = viewportHeight*0.8 - 40;
 
         if (popupHeight > minPopupHeight || spacesInnerHeight > popupHeight) {
-            spaces.css({height: (minPopupHeight - inputHeight < spacesInnerHeight) ? minPopupHeight - inputHeight : spacesHeight});
+            spaces.css(
+                {
+                    height: (minPopupHeight - inputHeight < spacesInnerHeight) ?
+                        minPopupHeight - inputHeight :
+                        spacesHeight
+                }
+            );
         }
     },
 
     _getPopup: function() {
         return this._popup;
+    },
+
+    _getFilter: function() {
+        return this._filter;
     },
 
     _onOutsideClick: function(e) {

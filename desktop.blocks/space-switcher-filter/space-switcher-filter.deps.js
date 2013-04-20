@@ -1,6 +1,9 @@
 ({
     shouldDeps: [
         {
+            elem: 'item'
+        },
+        {
             block: 'organization',
             elems: ['create-space', 'icon', 'name']
         },
