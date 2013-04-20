@@ -72,119 +72,14 @@
                                                     elem: 'popup',
                                                     content: {
                                                         block: 'space-switcher-filter',
+                                                        js: true,
                                                         content: [
                                                             {
                                                                 elem: 'input'
                                                             },
                                                             {
                                                                 elem: 'spaces',
-                                                                content: [
-                                                                    {
-                                                                        block: 'organization',
-                                                                        content: [
-                                                                            {
-                                                                                elem: 'icon',
-                                                                                src: ''
-                                                                            },
-                                                                            {
-                                                                                block: 'list',
-                                                                                content: [
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        elemMods: {
-                                                                                            state: 'selected'
-                                                                                        },
-                                                                                        mix: [
-                                                                                            {
-                                                                                                block: 'organization',
-                                                                                                elem: 'name'
-                                                                                            }
-                                                                                        ],
-                                                                                        url: '/',
-                                                                                        content: 'auchenberg'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'auchenberg'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'scrum'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'visiolink'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        mix: [
-                                                                                            {
-                                                                                                block: 'organization',
-                                                                                                elem: 'create-space'
-                                                                                            }
-                                                                                        ],
-                                                                                        url: '#create',
-                                                                                        content: '+ New space'
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        ]
-                                                                    },
-                                                                    {
-                                                                        block: 'organization',
-                                                                        content: [
-                                                                            {
-                                                                                elem: 'icon',
-                                                                                src: ''
-                                                                            },
-                                                                            {
-                                                                                block: 'list',
-                                                                                content: [
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        mix: [
-                                                                                            {
-                                                                                                block: 'organization',
-                                                                                                elem: 'name'
-                                                                                            }
-                                                                                        ],
-                                                                                        url: '/',
-                                                                                        content: 'Podio'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'Аuchenberg'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'Launch'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        url: '/',
-                                                                                        content: 'visiolink'
-                                                                                    },
-                                                                                    {
-                                                                                        elem: 'item',
-                                                                                        mix: [
-                                                                                            {
-                                                                                                block: 'organization',
-                                                                                                elem: 'create-space'
-                                                                                            }
-                                                                                        ],
-                                                                                        url: '#create',
-                                                                                        content: '+ New space'
-                                                                                    }
-                                                                                ]
-                                                                            }
-                                                                        ]
-                                                                    }
-                                                                ]
+                                                                content: []
                                                             }
                                                         ]
                                                     }

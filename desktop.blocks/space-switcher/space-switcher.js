@@ -13,49 +13,11 @@ BEM.DOM.decl('space-switcher', {
             var self = this;
             var popup = self._getPopup();
 
-            $.when(self._loadData()).then(function() {
-                var organizations = self._getData();
-                var bemjson = [];
-
-                console.log(organizations)
-
-                bemjson = organizations.map(function(org) {
-                   return {
-                       block: 'organization',
-                       content: [
-                           {
-                               elem: 'icon',
-                               src: (org.image && org.image.thumbnail_link) || ''
-                           },
-                           {
-                               block: 'list',
-                               content: [
-                                   {
-                                       elem: 'item',
-                                       mix: [
-                                           {
-                                               block: 'organization',
-                                               elem: 'name'
-                                           }
-                                       ],
-                                       url: org.url,
-                                       content: org.name
-                                   }
-                               ]
-                           }
-                       ]
-                   };
-                });
-
-                console.log(BEMHTML.apply(bemjson))
-                self.toggleMod(popup, 'visible', 'yes');
-            })
+            self.toggleMod(popup, 'visible', 'yes');
         }
     },
 
     _popup: null,
-
-    _data: null,
 
     _isActive: function() {
         return this.hasMod('active');
@@ -91,33 +53,6 @@ BEM.DOM.decl('space-switcher', {
 
     _getPopup: function() {
         return this._popup;
-    },
-
-    _getData: function() {
-        return this._data;
-    },
-
-    _loadData: function() {
-        var self = this;
-        var dfd = $.Deferred();
-
-        if (!self._data) {
-            $.ajax({
-                url: '/data.json',
-                dataType: 'json',
-                success: function(data) {
-                    self._data = data;
-                    dfd.resolve();
-                },
-                error: function() {
-                    dfd.reject();
-                }
-            })
-        } else {
-            dfd.resolve();
-        }
-
-        return dfd.promise();
     },
 
     _onOutsideClick: function(e) {
