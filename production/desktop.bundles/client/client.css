@@ -1,0 +1,7 @@
+@import url(../../desktop.blocks/space-switcher-filter/space-switcher-filter.css);
+@import url(../../desktop.blocks/space-switcher-filter/__item/space-switcher-filter__item.css);
+@import url(../../desktop.blocks/organization/organization.css);
+@import url(../../desktop.blocks/organization/__create-space/organization__create-space.css);
+@import url(../../desktop.blocks/organization/__icon/organization__icon.css);
+@import url(../../desktop.blocks/organization/__name/organization__name.css);
+@import url(../../desktop.blocks/list/__item/list__item.css);
