@@ -16,6 +16,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 self._navItems = self._items;
                 self._input = self.findElem('input');
                 self._organizations = self.findBlocksInside('organization');
+                self._spaceSwitcher = self.findBlockOutside('space-switcher');
                 self._rowHeight = self._getRowHeight();
 
                 self._redrawList()
@@ -55,6 +56,8 @@ BEM.DOM.decl('space-switcher-filter', {
     _input: null,
 
     _organizations: null,
+
+    _spaceSwitcher: null,
 
     _curItemIndex: -1,
 
@@ -151,6 +154,10 @@ BEM.DOM.decl('space-switcher-filter', {
         return this._organizations;
     },
 
+    _getSpaceSwitcher: function() {
+        return this._spaceSwitcher;
+    },
+
     _getRowHeight: function() {
         var items = this._getItems();
 
@@ -243,8 +250,8 @@ BEM.DOM.decl('space-switcher-filter', {
         var self = this;
         var allItems = self._getItems();
         var filteredItems = allItems.not(items);
-        var spaceSwitcher = self.findBlockOutside('space-switcher');
-        var organiztions = self._getOrganizations();
+        var spaceSwitcher = self._getSpaceSwitcher();
+        var organizations = self._getOrganizations();
 
         allItems.each(function(index, item) {
             var $item = $(item);
@@ -273,7 +280,7 @@ BEM.DOM.decl('space-switcher-filter', {
             $item.html(self._highlight($item.text()));
         });
 
-        organiztions.forEach(function(organization) {
+        organizations.forEach(function(organization) {
             var list = organization.findBlockInside('list');
             var name = organization.findElem('name');
             var items = list.findElem('item');
