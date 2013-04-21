@@ -241,6 +241,7 @@ BEM.DOM.decl('space-switcher-filter', {
             var $item = $(item);
 
             self.delMod($item, 'hidden');
+            self.delMod($item, 'state');
         });
 
         filteredItems.each(function(index, item) {
