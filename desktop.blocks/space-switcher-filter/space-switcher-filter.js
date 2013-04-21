@@ -46,6 +46,21 @@ BEM.DOM.decl('space-switcher-filter', {
         }
     },
 
+    onElemSetMod: {
+        'item': {
+            'matched': {
+                'yes': function(elem) {
+                    elem.html(this._highlight(elem.text()))
+                },
+                '': function(elem) {
+                    var clearedText = elem.html().replace('<strong>', '').replace('</strong>', '');
+
+                    elem.html(clearedText);
+                }
+            }
+        }
+    },
+
     // json data from server
     _data: null,
 
@@ -251,7 +266,6 @@ BEM.DOM.decl('space-switcher-filter', {
             self.delMod($item, 'hidden');
             self.delMod($item, 'state');
             self.delMod($item, 'matched');
-            $item.html($item.html().replace('<strong>', '').replace('</strong>', ''));
         });
 
         filteredItems.each(function(index, item) {
@@ -269,7 +283,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 self.setMod($item, 'matched', 'yes');
             }
 
-            $item.html(self._highlight($item.text()));
+            //$item.html(self._highlight($item.text()));
         });
 
         organizations.forEach(function(organization) {
