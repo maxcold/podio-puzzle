@@ -44,6 +44,7 @@ BEM.DOM.decl('space-switcher-filter', {
         }
     },
 
+    // json data from server
     _data: null,
 
     _items: null,
@@ -115,8 +116,9 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _updateNavItems: function() {
-        var organizations = this.findBlocksInside('organization');
-        var resultItems = this._getItems();
+        var self = this;
+        var organizations = self.findBlocksInside('organization');
+        var resultItems = self._getItems();
         var itemsToExclude = [];
 
         organizations.forEach(function(organization) {
@@ -128,7 +130,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 itemsToExclude = itemsToExclude.filter(function(index, item) {
                     var $item = $(item);
 
-                    return $item.hasClass('space-switcher-filter__item_hidden_yes');
+                    return self.hasMod($item, 'hidden', 'yes');
                 });
                 resultItems = resultItems.not(itemsToExclude);
             }
@@ -257,7 +259,9 @@ BEM.DOM.decl('space-switcher-filter', {
         items.forEach(function(item) {
             var $item = $(item);
 
-            $item.addClass('space-switcher-filter__item_matched_yes');
+            if (this._query !== '') {
+                self.setMod($item, 'matched', 'yes');
+            }
 
             $item.html(self._highlight($item.text()));
         });
@@ -273,14 +277,15 @@ BEM.DOM.decl('space-switcher-filter', {
             items.each(function(index, item) {
                 var $item = $(item);
 
-                if ($item.hasClass('space-switcher-filter__item_hidden_yes')) {
+                if (self.hasMod($item,'hidden', 'yes')) {
                     hiddenItemsLength++
                 }
             });
 
             if (itemsLength === hiddenItemsLength + 2) {
-                if (name.hasClass('space-switcher-filter__item_matched_yes')) return;
-                organization.setMod('hidden', 'yes');
+                if (!self.hasMod(name, 'matched', 'yes')) {
+                    organization.setMod('hidden', 'yes');
+                }
             } else {
                 organization.delMod('hidden');
             }
