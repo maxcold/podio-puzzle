@@ -1,4 +1,11 @@
 BEM.DOM.decl('organization', {}, {
+
+    /**
+     * build BEMJSON for organization block with loaded data
+     * @static
+     * @param {Object} data
+     * @returns {BEMJSON}
+     */
     _build: function(data) {
         return data.map(function(org, index) {
             var spaces = org.spaces || [];
