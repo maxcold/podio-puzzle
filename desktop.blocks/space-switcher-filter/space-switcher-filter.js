@@ -242,6 +242,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
             self.delMod($item, 'hidden');
             self.delMod($item, 'state');
+            self.delMod($item, 'matched');
         });
 
         filteredItems.each(function(index, item) {
@@ -255,14 +256,18 @@ BEM.DOM.decl('space-switcher-filter', {
         items.forEach(function(item) {
             var $item = $(item);
 
+            $item.addClass('space-switcher-filter__item_matched_yes');
+
             $item.html(self._highlight($item.text()));
         });
 
         organiztions.forEach(function(organization) {
             var list = organization.findBlockInside('list');
+            var name = organization.findElem('name');
             var items = list.findElem('item');
             var itemsLength = items.length;
             var hiddenItemsLength = 0;
+
 
             items.each(function(index, item) {
                 var $item = $(item);
@@ -273,6 +278,7 @@ BEM.DOM.decl('space-switcher-filter', {
             });
 
             if (itemsLength === hiddenItemsLength + 2) {
+                if (name.hasClass('space-switcher-filter__item_matched_yes')) return;
                 organization.setMod('hidden', 'yes');
             } else {
                 organization.delMod('hidden');
