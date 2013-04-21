@@ -24,6 +24,10 @@ $(NODE_MODULES)::
 	$(debug ---> Updating npm dependencies)
 	@$(NPM) install
 
+.PHONY: python-server
+python-server:: 
+	python -m SimpleHTTPServer 8000
+
 .PHONY: clean
 clean::
 	$(BEM) make -m clean
