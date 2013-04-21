@@ -312,6 +312,8 @@ BEM.DOM.decl('space-switcher-filter', {
 
         spaceSwitcher.setPopupHeight();
 
+        self._scrollToCurrent();
+
     },
 
     _highlight: function (text) {
