@@ -243,14 +243,16 @@ BEM.DOM.decl('space-switcher-filter', {
         var items = self._getItems();
 
         items = $.grep(items, function(item) {
-            var $item = $(item);
-
-            if (!$item.hasClass('organization__create-space')) {
-                return self._matcher(item);
-            }
+            return self._matcher(item);
         });
 
         self._render(items);
+    },
+
+    _matcher: function(item) {
+        var $item = $(item);
+
+        return ~item.text.toLowerCase().indexOf(this._query.toLowerCase()) && !$item.hasClass('organization__create-space');
     },
 
     _render: function(items) {
@@ -326,10 +328,6 @@ BEM.DOM.decl('space-switcher-filter', {
         return text.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
                 return '<strong>' + match + '</strong>';
         });
-    },
-
-    _matcher: function(item) {
-        return ~item.text.toLowerCase().indexOf(this._query.toLowerCase());
     },
 
     _onSelectItem: function(item) {
