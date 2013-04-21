@@ -28,6 +28,14 @@ $(NODE_MODULES)::
 python-server:: 
 	python -m SimpleHTTPServer 8000
 
+.PHONY: production
+production:: clean
+	env YENV=production bem make
+	cp -r desktop.bundles production/desktop.bundles
+	cp -r i production/i
+	cp data.json production/
+
 .PHONY: clean
 clean::
+	rm -rf production/*
 	$(BEM) make -m clean
