@@ -65,7 +65,13 @@
                                                         }
                                                     ],
                                                     url: '#',
-                                                    content: 'Go to space'
+                                                    content: [
+                                                        'Go to space',
+                                                        {
+                                                            block: 'space-switcher',
+                                                            elem: 'arrow'
+                                                        }
+                                                    ]
                                                 },
                                                 {
                                                     block: 'space-switcher',

@@ -9,3 +9,19 @@
 
     border-color: #bebfc1;
 }
+
+    .space-switcher__arrow {
+        display: inline-block;
+
+        width: 10px;
+        height: 5px;
+
+        margin-left: 5px;
+        margin-bottom: 1px;
+
+        background: url('space-switcher__control.png') no-repeat left bottom;
+    }
+
+    .space-switcher_active_yes .space-switcher__arrow {
+        background-position: left top;
+    }
