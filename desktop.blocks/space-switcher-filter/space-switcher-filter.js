@@ -138,18 +138,15 @@ BEM.DOM.decl('space-switcher-filter', {
         var itemsToExclude = [];
 
         organizations.forEach(function(organization) {
-            if (organization.hasMod('hidden', 'yes')) {
-                itemsToExclude = organization.findBlockInside('list').findElem('item');
-                resultItems = resultItems.not(itemsToExclude);
-            } else {
-                itemsToExclude =  organization.findBlockInside('list').findElem('item');
-                itemsToExclude = itemsToExclude.filter(function(index, item) {
-                    var $item = $(item);
+            var $organization = $(organization.domElem);
 
-                    return self.hasMod($item, 'hidden', 'yes');
-                });
-                resultItems = resultItems.not(itemsToExclude);
+            if (organization.hasMod('hidden', 'yes')) {
+                itemsToExclude = self.findElem($organization, 'item');
+            } else {
+                itemsToExclude = self.findElem($organization, 'item', 'hidden', 'yes');
             }
+
+            resultItems = resultItems.not(itemsToExclude);
 
         });
 
