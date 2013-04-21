@@ -3,14 +3,14 @@ BEM.DOM.decl('space-switcher-filter', {
     onSetMod: {
         js: function() {
             var self = this;
-            var spacesContainer = self.findElem('spaces-inner');
+            var $spacesContainer = self.findElem('spaces-inner');
 
             $.when(self.loadData()).then(function() {
                 var data = self._getData();
                 var bemjson = BEM.blocks['organization']._build(data);
                 var html = BEMHTML.apply(bemjson);
 
-                spacesContainer.append(html);
+                $spacesContainer.append(html);
 
                 self._initFields();
 
@@ -20,9 +20,9 @@ BEM.DOM.decl('space-switcher-filter', {
 
         focused: {
             'yes': function() {
-                var input = this._getInput();
+                var $input = this._getInput();
 
-                input.focus();
+                $input.focus();
 
                 this
                     .bindTo('keypress', function(e) {
@@ -36,7 +36,7 @@ BEM.DOM.decl('space-switcher-filter', {
                     })
             },
             '': function() {
-                this.unbindFrom('keypress keydown keyup')
+                this.unbindFrom('keypress keydown keyup');
             }
         }
     },
@@ -44,13 +44,13 @@ BEM.DOM.decl('space-switcher-filter', {
     onElemSetMod: {
         'item': {
             'matched': {
-                'yes': function(elem) {
-                    elem.html(this._highlight(elem.text()))
+                'yes': function($elem) {
+                    $elem.html(this._highlight($elem.text()))
                 },
-                '': function(elem) {
-                    var clearedText = elem.html().replace('<strong>', '').replace('</strong>', '');
+                '': function($elem) {
+                    var clearedText = $elem.html().replace('<strong>', '').replace('</strong>', '');
 
-                    elem.html(clearedText);
+                    $elem.html(clearedText);
                 }
             }
         }
@@ -87,9 +87,9 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _bindToMouseEvents: function() {
         var self = this;
-        var items = self._getItems();
+        var $items = self._getItems();
 
-        self.bindTo(items, {
+        self.bindTo($items, {
             'mouseover': function(e) {
                 self._onEnterItem(e.data.domElem);
             },
@@ -102,11 +102,11 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _onEnterItem: function(item, byKeyboard) {
         var idx = this._curItemIndex;
-        var items = this._getNavItems();
+        var $items = this._getNavItems();
 
-        idx > -1 && this.delMod(items.eq(idx), 'state');
+        idx > -1 && this.delMod($items.eq(idx), 'state');
         idx = this._getItemIndex(item);
-        idx > -1 && this.setMod(items.eq(this._curItemIndex = idx), 'state', 'selected');
+        idx > -1 && this.setMod($items.eq(this._curItemIndex = idx), 'state', 'selected');
 
         if (byKeyboard) {
             this._scrollToCurrent();
@@ -115,10 +115,10 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _onLeaveItem: function(item) {
         var idx = this._curItemIndex;
-        var items = this._getNavItems();
+        var $items = this._getNavItems();
 
         if (idx > -1 && idx === this._getItemIndex(item)) {
-            this.delMod(items.eq(idx), 'state');
+            this.delMod($items.eq(idx), 'state');
             this._curItemIndex = -1;
         }
     },
@@ -134,7 +134,7 @@ BEM.DOM.decl('space-switcher-filter', {
     _updateNavItems: function() {
         var self = this;
         var organizations = self._getOrganizations();
-        var resultItems = self._getItems();
+        var $resultItems = self._getItems();
         var itemsToExclude = [];
 
         organizations.forEach(function(organization) {
@@ -146,11 +146,11 @@ BEM.DOM.decl('space-switcher-filter', {
                 itemsToExclude = self.findElem($organization, 'item', 'hidden', 'yes');
             }
 
-            resultItems = resultItems.not(itemsToExclude);
+            $resultItems = $resultItems.not(itemsToExclude);
 
         });
 
-        this._navItems = resultItems;
+        this._navItems = $resultItems;
     },
 
     _getInput: function() {
@@ -166,38 +166,38 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _getRowHeight: function() {
-        var items = this._getItems();
+        var $items = this._getItems();
 
-        return items.outerHeight();
+        return $items.outerHeight();
     },
 
-    _getItemIndex: function(item) {
-        var items = this._getNavItems();
+    _getItemIndex: function($item) {
+        var $items = this._getNavItems();
 
-        return $.inArray(item.get(0), items);
+        return $.inArray($item.get(0), $items);
     },
 
     _onKeyPress: function(e) {
-        var items = this._getNavItems();
+        var $items = this._getNavItems();
 
         //enter
         if (e.keyCode === 13) {
             e.preventDefault();
 
             if (this._curItemIndex > -1) {
-                this._onSelectItem(items.eq(this._curItemIndex))
+                this._onSelectItem($items.eq(this._curItemIndex))
             }
         }
     },
 
     _onKeyDown: function(e) {
-        var items = this._getNavItems();
+        var $items = this._getNavItems();
 
         //up and down
         if (e.keyCode === 38 || e.keyCode === 40) {
             e.preventDefault();
 
-            var len = items.length;
+            var len = $items.length;
 
             if (len) {
                 var direction = e.keyCode - 39;
@@ -207,7 +207,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 do {
                     idx += direction;
                 } while(idx >= 0 && idx < len &&
-                    this._onEnterItem(items.eq(idx), true) === false && ++i < len
+                    this._onEnterItem($items.eq(idx), true) === false && ++i < len
                 );
             }
         }
@@ -223,16 +223,16 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _lookup: function() {
-        var input = this._getInput();
+        var $input = this._getInput();
 
-        this._query = input.val();
+        this._query = $input.val();
 
         this._process();
     },
 
     _process: function() {
         var self = this;
-        var items = self._getItems();
+        var items = self._getItems().toArray();
 
         items = $.grep(items, function(item) {
             return self._matcher(item);
@@ -252,12 +252,12 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _render: function(items) {
         var self = this;
-        var allItems = self._getItems();
-        var filteredItems = allItems.not(items);
+        var $allItems = self._getItems();
+        var $filteredItems = $allItems.not(items);
         var spaceSwitcher = self._getSpaceSwitcher();
         var organizations = self._getOrganizations();
 
-        allItems.each(function(index, item) {
+        $allItems.each(function(index, item) {
             var $item = $(item);
 
             self.delMod($item, 'hidden')
@@ -265,7 +265,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 .delMod($item, 'matched');
         });
 
-        filteredItems.each(function(index, item) {
+        $filteredItems.each(function(index, item) {
             var $item = $(item);
 
             if (!($item.hasClass('organization__name') || $item.hasClass('organization__create-space'))) {
@@ -282,14 +282,14 @@ BEM.DOM.decl('space-switcher-filter', {
         });
 
         organizations.forEach(function(organization) {
-            var name = organization.findElem('name');
+            var $name = organization.findElem('name');
             var list = organization.findBlockInside('list');
-            var items = list.findElem('item');
-            var itemsLength = items.length;
+            var $items = list.findElem('item');
+            var itemsLength = $items.length;
             var hiddenItemsLength = 0;
 
 
-            items.each(function(index, item) {
+            $items.each(function(index, item) {
                 var $item = $(item);
 
                 if (self.hasMod($item,'hidden', 'yes')) {
@@ -298,7 +298,7 @@ BEM.DOM.decl('space-switcher-filter', {
             });
 
             if (itemsLength === hiddenItemsLength + 2) {
-                if (!self.hasMod(name, 'matched', 'yes')) {
+                if (!self.hasMod($name, 'matched', 'yes')) {
                     organization.setMod('hidden', 'yes');
                 }
             } else {
@@ -324,27 +324,27 @@ BEM.DOM.decl('space-switcher-filter', {
         });
     },
 
-    _onSelectItem: function(item) {
-        window.location.href = item.attr('href');
+    _onSelectItem: function($item) {
+        window.location.href = $item.attr('href');
     },
 
     _scrollToCurrent: function() {
         if (this._curItemIndex < 0) return;
 
         var curOffsetTop = this.findElem('item', 'state', 'selected').get(0).offsetTop;
-        var spaces = this.findElem('spaces');
-        var scrollTop = spaces.scrollTop();
+        var $spaces = this.findElem('spaces');
+        var scrollTop = $spaces.scrollTop();
         var disp = curOffsetTop - scrollTop;
         var fact = this._rowHeight * 2;
         var newScrollTop;
 
-        if (disp > spaces.height() - fact) {
+        if (disp > $spaces.height() - fact) {
             newScrollTop = curOffsetTop - fact;
         } else if (scrollTop && disp < fact) {
-            newScrollTop = curOffsetTop - spaces.height() + fact;
+            newScrollTop = curOffsetTop - $spaces.height() + fact;
         }
 
-        newScrollTop && spaces.scrollTop(newScrollTop);
+        newScrollTop && $spaces.scrollTop(newScrollTop);
     },
 
     _getData: function() {
