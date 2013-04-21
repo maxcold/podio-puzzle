@@ -63,7 +63,7 @@ BEM.DOM.decl('space-switcher', {
         var viewportHeight = $(window).height();
         var minPopupHeight = viewportHeight*0.8 - 40;
 
-        if (popupHeight > minPopupHeight || spacesInnerHeight > popupHeight) {
+        if (popupHeight > minPopupHeight || spacesInnerHeight !== popupHeight) {
             spaces.css(
                 {
                     height: (minPopupHeight - inputHeight < spacesInnerHeight) ?

@@ -13,6 +13,7 @@ BEM.DOM.decl('space-switcher-filter', {
                 spacesContainer.append(html);
 
                 self._items = self.findElem('item');
+                self._navItems = self._items;
                 self._input = self.findElem('input');
                 self._rowHeight = self._getRowHeight();
 
@@ -46,6 +47,8 @@ BEM.DOM.decl('space-switcher-filter', {
     _data: null,
 
     _items: null,
+
+    _navItems: null,
 
     _input: null,
 
@@ -82,7 +85,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _onEnterItem: function(item, byKeyboard) {
         var idx = this._curItemIndex;
-        var items = this._getItems();
+        var items = this._getNavItems();
 
         idx > -1 && this.delMod(items.eq(idx), 'state');
         idx = this._getItemIndex(item);
@@ -95,7 +98,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _onLeaveItem: function(item) {
         var idx = this._curItemIndex;
-        var items = this._getItems();
+        var items = this._getNavItems();
 
         if (idx > -1 && idx === this._getItemIndex(item)) {
             this.delMod(items.eq(idx), 'state');
@@ -105,6 +108,34 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _getItems: function() {
         return this._items;
+    },
+
+    _getNavItems: function() {
+        return this._navItems;
+    },
+
+    _updateNavItems: function() {
+        var organizations = this.findBlocksInside('organization');
+        var resultItems = this._getItems();
+        var itemsToExclude = [];
+
+        organizations.forEach(function(organization) {
+            if (organization.hasMod('hidden', 'yes')) {
+                itemsToExclude = organization.findBlockInside('list').findElem('item');
+                resultItems = resultItems.not(itemsToExclude);
+            } else {
+                itemsToExclude =  organization.findBlockInside('list').findElem('item');
+                itemsToExclude = itemsToExclude.filter(function(index, item) {
+                    var $item = $(item);
+
+                    return $item.hasClass('space-switcher-filter__item_hidden_yes');
+                });
+                resultItems = resultItems.not(itemsToExclude);
+            }
+
+        });
+
+        this._navItems = resultItems;
     },
 
     _getInput: function() {
@@ -118,18 +149,18 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _getItemIndex: function(item) {
-        var items = this._getItems();
+        var items = this._getNavItems();
 
         return $.inArray(item.get(0), items);
     },
 
     _onKeyPress: function(e) {
-        var items = this._getItems();
+        var items = this._getNavItems();
 
         //enter
         if (e.keyCode === 13) {
             e.preventDefault();
-            console.log(this._curItemIndex)
+
             if (this._curItemIndex > -1) {
                 this._onSelectItem(items.eq(this._curItemIndex))
             }
@@ -137,7 +168,7 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _onKeyDown: function(e) {
-        var items = this._getItems();
+        var items = this._getNavItems();
 
         //up and down
         if (e.keyCode === 38 || e.keyCode === 40) {
@@ -166,9 +197,9 @@ BEM.DOM.decl('space-switcher-filter', {
             case 16: // shift
             case 17: // ctrl
             case 18: // alt
-            case 9:
-            case 13:
-            case 27:
+            case 9: // tab
+            case 13: //enter
+            case 27: //escape
                 break;
 
             default:
@@ -189,7 +220,11 @@ BEM.DOM.decl('space-switcher-filter', {
         var items = self._getItems();
 
         items = $.grep(items, function(item) {
-            return self._matcher(item);
+            var $item = $(item);
+
+            if (!$item.hasClass('organization__create-space')) {
+                return self._matcher(item);
+            }
         });
 
         self._render(items);
@@ -199,17 +234,56 @@ BEM.DOM.decl('space-switcher-filter', {
         var self = this;
         var allItems = self._getItems();
         var filteredItems = allItems.not(items);
+        var spaceSwitcher = self.findBlockOutside('space-switcher');
+        var organiztions = self.findBlocksInside('organization');
+
+        allItems.each(function(index, item) {
+            var $item = $(item);
+
+            self.delMod($item, 'hidden');
+        });
 
         filteredItems.each(function(index, item) {
-            self.setMod($(item), 'hidden', 'yes');
+            var $item = $(item);
+
+            if (!($item.hasClass('organization__name') || $item.hasClass('organization__create-space'))) {
+                self.setMod($item, 'hidden', 'yes');
+            }
         });
 
         items.forEach(function(item) {
             var $item = $(item);
 
-            $(item).html(self._highlight(item.text));
+            $item.html(self._highlight($item.text()));
         });
 
+        organiztions.forEach(function(organization) {
+            var list = organization.findBlockInside('list');
+            var items = list.findElem('item');
+            var itemsLength = items.length;
+            var hiddenItemsLength = 0;
+
+            items.each(function(index, item) {
+                var $item = $(item);
+
+                if ($item.hasClass('space-switcher-filter__item_hidden_yes')) {
+                    hiddenItemsLength++
+                }
+            });
+
+            if (itemsLength === hiddenItemsLength + 2) {
+                organization.setMod('hidden', 'yes');
+            } else {
+                organization.delMod('hidden');
+            }
+        });
+
+        self._updateNavItems();
+        self._curItemIndex = 0;
+
+        self._onEnterItem(self._getNavItems().eq(0));
+
+        spaceSwitcher._setPopupHeight();
 
     },
 
