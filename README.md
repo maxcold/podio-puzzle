@@ -16,7 +16,7 @@ first load may be long (about 20 seconds), bem server should setup dependencies 
     cd podio-puzzle
     make python-server
 
-python SimpleHTTPServe will start in 8000
+python SimpleHTTPServe will start on 8000
 
 than in browser: http://localhost:8000/production/desktop.bundles/index/index.html
 
