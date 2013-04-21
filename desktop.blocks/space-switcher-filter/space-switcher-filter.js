@@ -251,8 +251,11 @@ BEM.DOM.decl('space-switcher-filter', {
 
     _matcher: function(item) {
         var $item = $(item);
+        var query = this._query;
+        var queryText = query.toLowerCase();
+        var itemText = item.text.toLowerCase();
 
-        return ~item.text.toLowerCase().indexOf(this._query.toLowerCase()) && !$item.hasClass('organization__create-space');
+        return ~itemText.indexOf(queryText) && !$item.hasClass('organization__create-space');
     },
 
     _render: function(items) {
