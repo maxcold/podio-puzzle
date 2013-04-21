@@ -214,20 +214,12 @@ BEM.DOM.decl('space-switcher-filter', {
     },
 
     _onKeyUp: function(e) {
-        switch(e.keyCode) {
-            case 40: // down arrow
-            case 38: // up arrow
-            case 16: // shift
-            case 17: // ctrl
-            case 18: // alt
-            case 9: // tab
-            case 13: //enter
-            case 27: //escape
-                break;
+        // tab, enter, shift, ctrl, alt, escape, up and down
+        var nonSymbolKeys = [9, 13, 16, 17, 18, 27, 38, 40];
 
-            default:
-              this._lookup()
-          }
+        if (!~$.inArray(e.keyCode, nonSymbolKeys)) {
+            this._lookup();
+        }
     },
 
     _lookup: function() {
