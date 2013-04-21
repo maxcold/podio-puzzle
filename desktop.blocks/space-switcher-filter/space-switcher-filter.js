@@ -12,12 +12,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
                 spacesContainer.append(html);
 
-                self._items = self.findElem('item');
-                self._navItems = self._items;
-                self._input = self.findElem('input');
-                self._organizations = self.findBlocksInside('organization');
-                self._spaceSwitcher = self.findBlockOutside('space-switcher');
-                self._rowHeight = self._getRowHeight();
+                self._initFields()
 
                 self._redrawList()
             });
@@ -79,6 +74,15 @@ BEM.DOM.decl('space-switcher-filter', {
     _rowHeight: 23,
 
     _query: '',
+
+    _initFields: function() {
+        this._items = this.findElem('item');
+        this._navItems = this._items;
+        this._input = this.findElem('input');
+        this._organizations = this.findBlocksInside('organization');
+        this._spaceSwitcher = this.findBlockOutside('space-switcher');
+        this._rowHeight = this._getRowHeight();
+    },
 
     _redrawList: function() {
         var self = this;
