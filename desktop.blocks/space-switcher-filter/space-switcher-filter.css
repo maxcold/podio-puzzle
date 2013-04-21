@@ -1,7 +1,15 @@
 .space-switcher-filter__input  {
-    width: 275px;
+    font-size: 0.8em;
+
+    width: 250px;
+    height: 20px;
 
     margin: 10px 0 10px 10px;
+
+    padding-left: 25px;
+
+    background: url('space-switcher-filter__input.png') no-repeat 3px 3px;
+    background-size: 16px 16px;
 }
 
 .space-switcher-filter__spaces {
