@@ -33,9 +33,12 @@ BEM.DOM.decl('space-switcher-filter', {
                     .bindTo('keydown', function(e) {
                         this._onKeyDown(e);
                     })
+                    .bindTo('keyup', function(e) {
+                        this._onKeyUp(e);
+                    })
             },
             '': function() {
-                this.unbindFrom('keypress keydown')
+                this.unbindFrom('keypress keydown keyup')
             }
         }
     },
@@ -49,6 +52,8 @@ BEM.DOM.decl('space-switcher-filter', {
     _curItemIndex: -1,
 
     _rowHeight: 23,
+
+    _query: '',
 
     _redrawList: function() {
         var self = this;
@@ -152,6 +157,72 @@ BEM.DOM.decl('space-switcher-filter', {
                 );
             }
         }
+    },
+
+    _onKeyUp: function(e) {
+        switch(e.keyCode) {
+            case 40: // down arrow
+            case 38: // up arrow
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 9:
+            case 13:
+            case 27:
+                break;
+
+            default:
+              this._lookup()
+          }
+    },
+
+    _lookup: function() {
+        var input = this._getInput();
+
+        this._query = input.val();
+
+        this._process();
+    },
+
+    _process: function() {
+        var self = this;
+        var items = self._getItems();
+
+        items = $.grep(items, function(item) {
+            return self._matcher(item);
+        });
+
+        self._render(items);
+    },
+
+    _render: function(items) {
+        var self = this;
+        var allItems = self._getItems();
+        var filteredItems = allItems.not(items);
+
+        filteredItems.each(function(index, item) {
+            self.setMod($(item), 'hidden', 'yes');
+        });
+
+        items.forEach(function(item) {
+            var $item = $(item);
+
+            $(item).html(self._highlight(item.text));
+        });
+
+
+    },
+
+    _highlight: function (text) {
+        var query = this._query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
+
+        return text.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
+                return '<strong>' + match + '</strong>';
+        });
+    },
+
+    _matcher: function(item) {
+        return ~item.text.toLowerCase().indexOf(this._query.toLowerCase());
     },
 
     _onSelectItem: function(item) {
