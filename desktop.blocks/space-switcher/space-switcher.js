@@ -16,9 +16,9 @@ BEM.DOM.decl('space-switcher', {
                 var popup = self._getPopup();
                 var filter = self._getFilter();
 
-                $.when(filter._loadData()).then(function(){
+                $.when(filter.loadData()).then(function(){
                     self.toggleMod(popup, 'visible', 'yes');
-                    filter._focus();
+                    filter.focus();
                 });
             },
             '': function() {
@@ -27,7 +27,7 @@ BEM.DOM.decl('space-switcher', {
                 var filter = self._getFilter();
 
                 self.toggleMod(popup, 'visible', 'yes');
-                filter._blur();
+                filter.blur();
             }
         }
     },
@@ -45,12 +45,28 @@ BEM.DOM.decl('space-switcher', {
     },
 
     _popupHeightHandler: function() {
-        this._setPopupHeight();
+        this.setPopupHeight();
 
-        this.bindToWin('resize', $.throttle(100, this._setPopupHeight));
+        this.bindToWin('resize', $.throttle(100, this.setPopupHeight));
     },
 
-    _setPopupHeight: function() {
+    _getPopup: function() {
+        return this._popup;
+    },
+
+    _getFilter: function() {
+        return this._filter;
+    },
+
+    _onOutsideClick: function(e) {
+        var $target = $(e.target);
+
+        if (!this.containsDomElem($target) && this._isActive()) {
+            this.delMod('active');
+        }
+    },
+
+    setPopupHeight: function() {
         var popup = this._getPopup();
         var popupHeight = popup.height();
         var filter = this.findBlockInside('space-switcher-filter');
@@ -71,22 +87,6 @@ BEM.DOM.decl('space-switcher', {
                         spacesHeight
                 }
             );
-        }
-    },
-
-    _getPopup: function() {
-        return this._popup;
-    },
-
-    _getFilter: function() {
-        return this._filter;
-    },
-
-    _onOutsideClick: function(e) {
-        var $target = $(e.target);
-
-        if (!this.containsDomElem($target) && this._isActive()) {
-            this.delMod('active');
         }
     }
 },

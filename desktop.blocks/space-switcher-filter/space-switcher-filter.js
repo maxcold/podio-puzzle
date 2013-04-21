@@ -5,7 +5,7 @@ BEM.DOM.decl('space-switcher-filter', {
             var self = this;
             var spacesContainer = self.findElem('spaces-inner');
 
-            $.when(self._loadData()).then(function() {
+            $.when(self.loadData()).then(function() {
                 var data = self._getData();
                 var bemjson = BEM.blocks['organization']._build(data);
                 var html = BEMHTML.apply(bemjson);
@@ -80,14 +80,6 @@ BEM.DOM.decl('space-switcher-filter', {
             }
         });
 
-    },
-
-    _focus: function() {
-        return this.setMod('focused', 'yes');
-    },
-
-    _blur: function() {
-        return this.delMod('focused');
     },
 
     _onEnterItem: function(item, byKeyboard) {
@@ -310,7 +302,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
         self._onEnterItem(self._getNavItems().eq(0));
 
-        spaceSwitcher._setPopupHeight();
+        spaceSwitcher.setPopupHeight();
 
     },
 
@@ -353,7 +345,15 @@ BEM.DOM.decl('space-switcher-filter', {
         return this._data;
     },
 
-    _loadData: function() {
+    focus: function() {
+        return this.setMod('focused', 'yes');
+    },
+
+    blur: function() {
+        return this.delMod('focused');
+    },
+
+    loadData: function() {
         var self = this;
         var dfd = $.Deferred();
 
