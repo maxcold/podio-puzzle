@@ -243,6 +243,7 @@ BEM.DOM.decl('space-switcher-filter', {
             self.delMod($item, 'hidden');
             self.delMod($item, 'state');
             self.delMod($item, 'matched');
+            $item.html($item.html().replace('<strong>', '').replace('</strong>', ''));
         });
 
         filteredItems.each(function(index, item) {
