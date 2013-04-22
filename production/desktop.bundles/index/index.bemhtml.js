@@ -584,7 +584,7 @@ var BEMHTML = function() {
         return;
     }
     function $155() {
-        if (!(this["__$anflg"] !== 899699202) === false) {
+        if (!(this["__$anflg"] !== 308305910) === false) {
             if (!!this.elem === false) {
                 return $158.call(this);
             } else {
@@ -620,7 +620,7 @@ var BEMHTML = function() {
         {
             "";
             var __r61 = this["__$anflg"];
-            this["__$anflg"] = 899699202;
+            this["__$anflg"] = 308305910;
             {
                 "";
                 var __r62 = this.ctx;
