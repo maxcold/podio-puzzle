@@ -33,7 +33,6 @@ production:: clean
 	env YENV=production bem make
 	cp -r desktop.bundles production/desktop.bundles
 	cp -r i production/i
-	cp data.json production/
 
 .PHONY: clean
 clean::

@@ -536,7 +536,7 @@ BEM.DOM.decl('space-switcher-filter', {
 
         if (!self._data) {
             $.ajax({
-                url: '/data.json',
+                url: 'data.json',
                 dataType: 'json',
                 success: function(data) {
                     self._data = data;
