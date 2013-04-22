@@ -1,0 +1,15 @@
+block menu {
+    tag: 'ul'
+}
+
+block menu, elem item {
+    tag: 'li'
+}
+
+block menu, elem link {
+    tag: 'a'
+
+    attrs: {
+        href: this.ctx.url
+    }
+}

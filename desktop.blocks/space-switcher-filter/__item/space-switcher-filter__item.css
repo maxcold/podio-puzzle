@@ -1,0 +1,13 @@
+.space-switcher-filter__item_state_selected {
+    background-color: #e9f0f7;
+}
+
+.space-switcher-filter__item strong {
+    background-color: #ffff00;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.space-switcher-filter__item_hidden_yes {
+    display: none !important;
+}

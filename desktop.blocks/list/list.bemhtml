@@ -1,0 +1,7 @@
+block list, elem item {
+    tag: 'a'
+
+    attrs: {
+        href: this.ctx.url
+    }
+}

@@ -1,0 +1,9 @@
+.organization__icon {
+    float: left;
+
+    width: 55px;
+    height: 60px;
+
+    background: url('organization__icon.png') no-repeat center 5px;
+    background-size: 32px 32px;
+}

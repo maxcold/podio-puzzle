@@ -1,0 +1,7 @@
+.menu__item {
+    display: inline-block;
+
+    line-height: 41px;
+
+    padding: 0 .5em;
+}

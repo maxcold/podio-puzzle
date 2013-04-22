@@ -1,0 +1,9 @@
+.list__item {
+    display: block;
+
+    color: #999;
+
+    padding: 2px 0 2px 20px;
+
+    text-decoration: none;
+}

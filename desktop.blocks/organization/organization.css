@@ -1,0 +1,21 @@
+.organization {
+    overflow: hidden;
+
+    border-top: 1px #eee solid;
+}
+
+.organization .list {
+    font-size: 0.8em;
+
+    float: left;
+
+    width: 244px;
+
+    padding: 5px 0 5px 0;
+
+    border-left: 1px #eee solid;
+}
+
+.organization_hidden_yes {
+    display: none;
+}

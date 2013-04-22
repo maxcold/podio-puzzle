@@ -1,0 +1,16 @@
+block logo {
+    tag: 'h1',
+
+    content: {
+        elem: 'no-image',
+        content: 'Podio'
+    }
+}
+
+block logo, elem no-image {
+    tag: 'a',
+
+    attrs: {
+        href: 'http://podio.com'
+    }
+}

@@ -1,0 +1,16 @@
+.menu__link {
+    margin: 10px 0 0 0;
+    padding: 0 .5em;
+
+    display: block;
+    
+    font-size: 0.8em;
+    line-height: 31px;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    border: 1px solid transparent;
+    border-bottom: none;
+}
